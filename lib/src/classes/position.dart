@@ -1,12 +1,9 @@
-import 'package:tic_tac_toe/src/interfaces/iposition.dart';
+class Position {
+  final int _row, _col;
 
-class Position implements IPosition {
-  final int _x, _y;
+  Position(this._row, this._col);
 
-  Position(this._x, this._y);
-
-  @override
   bool isValid() {
-    return _x > 0 && _x < 3 && _y > 0 && _y < 3;
+    return _row > 0 && _row < 3 && _col > 0 && _col < 3;
   }
 }
