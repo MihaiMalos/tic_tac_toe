@@ -1,1 +1,1 @@
-export './src/board.dart';
+export 'src/classes/board.dart';
