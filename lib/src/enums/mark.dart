@@ -1,1 +1,5 @@
-enum Mark { x, o, empty }
+enum Mark {
+  x,
+  o,
+  empty,
+}
