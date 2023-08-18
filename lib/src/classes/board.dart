@@ -1,4 +1,6 @@
-import 'package:tic_tac_toe/src/classes/position.dart';
+import 'package:tic_tac_toe/src/enums/game_state.dart';
+import 'package:tic_tac_toe/src/exceptions/exceptions.dart';
+import 'package:tic_tac_toe/src/API/position.dart';
 import 'package:tic_tac_toe/src/enums/mark.dart';
 
 typedef MarkMatrix = List<List<Mark>>;
@@ -10,10 +12,78 @@ class Board {
   Board()
       : _board = List.generate(
             size, (rowIndex) => List.generate(size, (colIndex) => Mark.empty));
+  Mark getElementByPos(Position pos) => _board[pos.row][pos.col];
+  Mark getElementByPair(int row, int col) => _board[row][col];
+
+  void validation(Position pos) {
+    if (!pos.isValid()) {
+      throw OutOfBoundException('Specified position is not valid');
+    }
+    if (!getElementByPos(pos).isEmpty) {
+      throw OcuppiedPositionException('Specified position is already ocuppied');
+    }
+  }
+
+  bool isFull() {
+    for (int row = 0; row < size; row++) {
+      if (_board[row].any((element) => !element.isSame(Mark.empty))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool checkColumn(int col, Mark mark) {
+    for (int row = 0; row < size; row++) {
+      if (getElementByPair(row, col) != mark) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool checkRow(int row, Mark mark) =>
+      _board[row].every((element) => element.isSame(mark));
+
+  bool checkPrimaryDiagonal(Mark mark) {
+    for (int index = 0; index < size; index++) {
+      if (!getElementByPair(index, index).isSame(mark)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool checkSecondaryDiagonal(Mark mark) {
+    for (int index = 0; index < size; index++) {
+      if (!getElementByPair(index, size - index - 1).isSame(mark)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  GameState checkWinning(Position pos, Mark mark) {
+    if (checkRow(pos.row, mark) ||
+        checkColumn(pos.col, mark) ||
+        checkPrimaryDiagonal(mark) ||
+        checkSecondaryDiagonal(mark)) {
+      if (mark == Mark.x) {
+        return GameState.xWon;
+      } else {
+        return GameState.oWon;
+      }
+    }
+
+    if (isFull()) {
+      return GameState.tie;
+    }
+
+    return GameState.playing;
+  }
 
   void placeMark(Position pos, Mark mark) {
-    // TODO: handling exceptions: position not valid, ocuppied position
-    if (!pos.isValid()) {}
+    validation(pos);
     _board[pos.row][pos.col] = mark;
   }
 

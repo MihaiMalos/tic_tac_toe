@@ -6,5 +6,5 @@ class Position {
   int get row => _row;
   int get col => _col;
 
-  bool isValid() => _row > 0 && _row < 3 && _col > 0 && _col < 3;
+  bool isValid() => _row >= 0 && _row < 3 && _col >= 0 && _col < 3;
 }
