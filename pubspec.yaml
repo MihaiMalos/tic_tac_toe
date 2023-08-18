@@ -1,15 +1,19 @@
-name: tic_tac_toe
-description: A sample command-line application.
-version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+name: tic_tac_toe_game
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
 
 environment:
-  sdk: ^3.0.6
+  sdk: '>=3.1.0 <4.0.0'
 
-# Add regular dependencies here.
 dependencies:
-  observer: ^0.0.1
+  flutter:
+    sdk: flutter
 
 dev_dependencies:
-  lints: ^2.0.0
-  test: ^1.21.0
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
