@@ -1,7 +1,7 @@
-import 'package:tic_tac_toe_game/GameLib/src/API/position.dart';
-import 'package:tic_tac_toe_game/GameLib/src/enums/game_state.dart';
-import 'package:tic_tac_toe_game/GameLib/src/enums/mark.dart';
-import 'package:tic_tac_toe_game/GameLib/src/exceptions/exceptions.dart';
+import 'package:tic_tac_toe_game/game_lib/src/API/position.dart';
+import 'package:tic_tac_toe_game/game_lib/src/enums/game_state.dart';
+import 'package:tic_tac_toe_game/game_lib/src/enums/mark.dart';
+import 'package:tic_tac_toe_game/game_lib/src/exceptions/exceptions.dart';
 
 typedef MarkMatrix = List<List<Mark>>;
 
@@ -68,18 +68,10 @@ class Board {
         checkColumn(pos.col, mark) ||
         checkPrimaryDiagonal(mark) ||
         checkSecondaryDiagonal(mark)) {
-      if (mark == Mark.x) {
-        return GameState.xWon;
-      } else {
-        return GameState.oWon;
-      }
+      return mark == Mark.x ? GameState.xWon : GameState.oWon;
     }
 
-    if (isFull()) {
-      return GameState.tie;
-    }
-
-    return GameState.playing;
+    return isFull() ? GameState.tie : GameState.playing;
   }
 
   void placeMark(Position pos, Mark mark) {
