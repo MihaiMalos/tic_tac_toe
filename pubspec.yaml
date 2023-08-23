@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  tic_tac_toe_lib:
+    path: dependencies/tic_tac_toe_lib
 
 dev_dependencies:
   flutter_test:
