@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tic_tac_toe_game/game_lib/src/API/game.dart';
 
 void main() {
   runApp(const MainApp());
@@ -10,12 +9,29 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+        backgroundColor: Colors.grey[900],
+        body: const BoardWidget(),
       ),
+    );
+  }
+}
+
+class BoardWidget extends StatelessWidget {
+  const BoardWidget({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: 3,
+      children: List.generate(9, (index) {
+        return const Center(
+          child: Text(
+            '1',
+            style: TextStyle(color: Colors.white),
+          ),
+        );
+      }),
     );
   }
 }
