@@ -1,39 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:tic_tac_toe_lib/tic_tac_toe_lib.dart';
+import 'package:tic_tac_toe_game/cubit/game_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tic_tac_toe_game/ui/router/app_router.dart';
 
 void main() {
-  Game g;
-  runApp(const MainApp());
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  MainApp({super.key});
+
+  final AppRouter _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.grey[900],
-        body: const BoardWidget(),
+    return BlocProvider<GameCubit>(
+      create: (context) => GameCubit(),
+      child: MaterialApp(
+        onGenerateRoute: _appRouter.onGenerateRoute,
       ),
-    );
-  }
-}
-
-class BoardWidget extends StatelessWidget {
-  const BoardWidget({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: 3,
-      children: List.generate(9, (index) {
-        return const Center(
-          child: Text(
-            '1',
-            style: TextStyle(color: Colors.white),
-          ),
-        );
-      }),
     );
   }
 }
