@@ -2,14 +2,15 @@ import 'package:tic_tac_toe_game/cubit/game_state.dart';
 import 'package:tic_tac_toe_lib/tic_tac_toe_lib.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class GameCubit extends Cubit<TicTacToeState> implements GameObserver {
+class GameCubit extends Cubit<GameState> implements GameObserver {
   Game? game;
-  GameCubit() : super(TicTacToeState());
+  GameCubit() : super(const GameState());
 
   void initializeGame(Strategy strategy) {
     game = Game.create(strategy: strategy);
+    game!.addObserver(this);
 
-    emit(GameContinueState(
+    emit(state.copyWith(
         boardRepresentation: game!.boardRepresentation, turn: game!.turn));
   }
 
@@ -23,12 +24,13 @@ class GameCubit extends Cubit<TicTacToeState> implements GameObserver {
 
   @override
   void onPlaceMark(Position pos) {
-    emit(GameContinueState(
-        boardRepresentation: game!.boardRepresentation, turn: game!.turn));
+    final newState = state.copyWith(
+        boardRepresentation: game!.boardRepresentation, turn: game!.turn);
+    emit(newState);
   }
 
   @override
-  void onGameOver(GameState state) {
-    emit(GameOverState(gameOverState: state));
+  void onGameOver(GameEvent gameState) {
+    emit(state.copyWith(gameOverState: gameState));
   }
 }

@@ -2,22 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tic_tac_toe_game/cubit/game_cubit.dart';
 import 'package:tic_tac_toe_game/cubit/game_state.dart';
+import 'package:tic_tac_toe_game/main.dart';
 import 'package:tic_tac_toe_lib/tic_tac_toe_lib.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
+  final bloc = getIt.get<GameCubit>();
 
-class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: BoardWidget(),
-      ),
+    return BlocBuilder<GameCubit, GameState>(
+      bloc: bloc,
+      builder: (context, state) {
+        return Scaffold(
+            appBar: AppBar(
+              title: Text(state.turn.name.toString()),
+            ),
+            backgroundColor: const Color.fromARGB(255, 37, 36, 36),
+            body: Center(
+              child: BoardWidget(
+                state: state,
+                onPositionTap: (y, x) {
+                  bloc.placeMark(Position(y, x));
+                },
+              ),
+            ));
+      },
     );
   }
 }
@@ -26,31 +37,44 @@ class TurnLabelWidget extends StatelessWidget {
   const TurnLabelWidget({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GameCubit, TicTacToeState>(
+    return BlocBuilder<GameCubit, GameState>(
+      bloc: getIt.get<GameCubit>(),
       builder: (context, state) {
-        if (state is GameContinueState) {
-          return Text(
-            "${state.turn.name}'s turn",
-            style: const TextStyle(color: Colors.black),
-          );
-        } else {
-          return Container();
-        }
+        return Text(
+          "${state.turn.name}'s turn",
+          style: const TextStyle(color: Colors.black),
+        );
       },
     );
   }
 }
 
 class BoardWidget extends StatelessWidget {
-  const BoardWidget({super.key});
+  final GameState state;
+  final Function(int x, int y) onPositionTap;
+
+  const BoardWidget({
+    super.key,
+    required this.state,
+    required this.onPositionTap,
+  });
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: 400),
+      constraints: const BoxConstraints(maxWidth: 250),
       child: GridView.count(
+        crossAxisSpacing: 3,
+        mainAxisSpacing: 3,
         crossAxisCount: 3,
         children: List.generate(9, (index) {
-          return BoardButton(row: index ~/ 3, column: index % 3);
+          Mark tappedPositionMark =
+              state.boardRepresentation[index ~/ 3][index % 3];
+          return BoardButton(
+            label: tappedPositionMark == Mark.empty
+                ? ' '
+                : tappedPositionMark.name,
+            onTap: () => onPositionTap(index ~/ 3, index % 3),
+          );
         }),
       ),
     );
@@ -58,23 +82,21 @@ class BoardWidget extends StatelessWidget {
 }
 
 class BoardButton extends StatelessWidget {
-  final int row, column;
-  const BoardButton({super.key, required this.row, required this.column});
+  final String label;
+  final VoidCallback onTap;
+
+  const BoardButton({super.key, required this.label, required this.onTap});
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: BlocBuilder<GameCubit, TicTacToeState>(
-        builder: (context, state) {
-          if (state is GameContinueState) {
-            Mark currentMark = state.boardRepresentation[row][column];
-            return Text(
-              currentMark == Mark.empty ? 'E' : currentMark.name.toUpperCase(),
-              style: const TextStyle(color: Colors.black),
-            );
-          } else {
-            return Container();
-          }
-        },
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(
+          width: 2,
+          color: Color.fromARGB(255, 62, 59, 59),
+        )),
+        child: Center(child: Text(label)),
       ),
     );
   }

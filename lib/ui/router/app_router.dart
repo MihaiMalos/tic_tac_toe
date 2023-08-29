@@ -8,7 +8,7 @@ class AppRouter {
       case '/':
         return MaterialPageRoute(builder: (_) => const DifficultyScreen());
       case '/home':
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
+        return MaterialPageRoute(builder: (_) => HomeScreen());
       default:
         throw Exception("The route name is not valid");
     }

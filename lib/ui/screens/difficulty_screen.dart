@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tic_tac_toe_game/cubit/game_cubit.dart';
+import 'package:tic_tac_toe_game/main.dart';
 import 'package:tic_tac_toe_lib/tic_tac_toe_lib.dart';
 
-class DifficultyScreen extends StatefulWidget {
+class DifficultyScreen extends StatelessWidget {
   const DifficultyScreen({super.key});
 
-  @override
-  State<DifficultyScreen> createState() => _DifficultyScreenState();
-}
-
-class _DifficultyScreenState extends State<DifficultyScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -18,25 +13,39 @@ class _DifficultyScreenState extends State<DifficultyScreen> {
         body: Center(
           child: Column(
             children: [
+              SizedBox(height: 50),
               Text(
                 'Choose difficulty',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25,
+                  letterSpacing: 5,
+                ),
               ),
-              DifficultyButton(
-                difficultyName: 'Easy',
-                strategy: Strategy.easy,
-              ),
-              DifficultyButton(
-                difficultyName: 'Medium',
-                strategy: Strategy.medium,
-              ),
-              DifficultyButton(
-                difficultyName: 'Hard',
-                strategy: Strategy.hard,
-              ),
-              DifficultyButton(
-                difficultyName: 'Two Players',
-                strategy: Strategy.twoPlayers,
+              SizedBox(height: 100),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  DifficultyButton(
+                    difficultyName: 'Easy',
+                    strategy: Strategy.easy,
+                  ),
+                  SizedBox(height: 10),
+                  DifficultyButton(
+                    difficultyName: 'Medium',
+                    strategy: Strategy.medium,
+                  ),
+                  SizedBox(height: 10),
+                  DifficultyButton(
+                    difficultyName: 'Hard',
+                    strategy: Strategy.hard,
+                  ),
+                  SizedBox(height: 10),
+                  DifficultyButton(
+                    difficultyName: 'Two Players',
+                    strategy: Strategy.twoPlayers,
+                  ),
+                ],
               ),
             ],
           ),
@@ -56,22 +65,25 @@ class DifficultyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GameCubit(),
-      child: GestureDetector(
-        child: Container(
-          padding: const EdgeInsets.all(18.0),
-          color: Colors.green,
+    return GestureDetector(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 200),
+        color: const Color.fromARGB(255, 54, 108, 56),
+        child: Center(
           child: Text(
             difficultyName,
-            style: const TextStyle(color: Colors.white),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
-        onTap: () {
-          context.read<GameCubit>().initializeGame(strategy);
-          Navigator.of(context).pushNamed('/home');
-        },
       ),
+      onTap: () {
+        getIt.get<GameCubit>().initializeGame(strategy);
+        Navigator.of(context).pushNamed('/home');
+      },
     );
   }
 }
