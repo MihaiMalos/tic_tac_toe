@@ -21,6 +21,7 @@ class MainApp extends StatelessWidget {
     return BlocProvider<GameCubit>(
       create: (context) => getIt.get<GameCubit>(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         onGenerateRoute: _appRouter.onGenerateRoute,
       ),
     );

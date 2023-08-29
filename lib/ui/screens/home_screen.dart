@@ -19,12 +19,16 @@ class HomeScreen extends StatelessWidget {
             appBar: AppBar(
               title: Text(state.turn.name.toString()),
             ),
-            backgroundColor: const Color.fromARGB(255, 37, 36, 36),
+            backgroundColor: const Color.fromARGB(255, 31, 30, 31),
             body: Center(
               child: BoardWidget(
                 state: state,
                 onPositionTap: (y, x) {
-                  bloc.placeMark(Position(y, x));
+                  try {
+                    bloc.placeMark(Position(y, x));
+                  } catch (e) {
+                    debugPrint(e.toString());
+                  }
                 },
               ),
             ));
@@ -94,9 +98,12 @@ class BoardButton extends StatelessWidget {
         decoration: BoxDecoration(
             border: Border.all(
           width: 2,
-          color: Color.fromARGB(255, 62, 59, 59),
+          color: const Color.fromARGB(255, 255, 255, 255),
         )),
-        child: Center(child: Text(label)),
+        child: Center(
+          child: Text(label,
+              style: const TextStyle(color: Colors.white, fontSize: 60)),
+        ),
       ),
     );
   }

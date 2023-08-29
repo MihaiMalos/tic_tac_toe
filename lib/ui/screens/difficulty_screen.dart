@@ -9,7 +9,7 @@ class DifficultyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-        backgroundColor: Color.fromARGB(255, 37, 36, 36),
+        backgroundColor: Color.fromARGB(255, 31, 30, 31),
         body: Center(
           child: Column(
             children: [
@@ -65,22 +65,24 @@ class DifficultyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-        constraints: const BoxConstraints(maxWidth: 200),
-        color: const Color.fromARGB(255, 54, 108, 56),
-        child: Center(
-          child: Text(
-            difficultyName,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-            ),
+    return TextButton(
+      style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                  side: const BorderSide(
+                      color: Color.fromARGB(255, 37, 36, 36))))),
+      child: Center(
+        child: Text(
+          difficultyName,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),
-      onTap: () {
+      onPressed: () {
         getIt.get<GameCubit>().initializeGame(strategy);
         Navigator.of(context).pushNamed('/home');
       },
