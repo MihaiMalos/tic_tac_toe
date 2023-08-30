@@ -24,23 +24,20 @@ class DifficultyScreen extends StatelessWidget {
               ),
               SizedBox(height: 100),
               Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   DifficultyButton(
                     difficultyName: 'Easy',
                     strategy: Strategy.easy,
                   ),
-                  SizedBox(height: 10),
                   DifficultyButton(
                     difficultyName: 'Medium',
                     strategy: Strategy.medium,
                   ),
-                  SizedBox(height: 10),
                   DifficultyButton(
                     difficultyName: 'Hard',
                     strategy: Strategy.hard,
                   ),
-                  SizedBox(height: 10),
                   DifficultyButton(
                     difficultyName: 'Two Players',
                     strategy: Strategy.twoPlayers,
@@ -65,16 +62,18 @@ class DifficultyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                  side: const BorderSide(
-                      color: Color.fromARGB(255, 37, 36, 36))))),
-      child: Center(
+    final gameCubit = getIt.get<GameCubit>();
+    return SizedBox(
+      height: 50,
+      child: MaterialButton(
+        hoverColor: const Color.fromARGB(255, 167, 60, 153),
+        onPressed: () {
+          gameCubit.initializeGame(strategy);
+          Navigator.of(context).pushNamed('/home');
+        },
         child: Text(
           difficultyName,
+          textAlign: TextAlign.center,
           style: const TextStyle(
             color: Colors.white,
             fontSize: 20,
@@ -82,10 +81,6 @@ class DifficultyButton extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: () {
-        getIt.get<GameCubit>().initializeGame(strategy);
-        Navigator.of(context).pushNamed('/home');
-      },
     );
   }
 }

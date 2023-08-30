@@ -12,6 +12,7 @@ void main() {
 }
 
 class MainApp extends StatelessWidget {
+  final gameCubit = getIt.get<GameCubit>();
   MainApp({super.key});
 
   final AppRouter _appRouter = AppRouter();
@@ -19,7 +20,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<GameCubit>(
-      create: (context) => getIt.get<GameCubit>(),
+      create: (context) => gameCubit,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: _appRouter.onGenerateRoute,
