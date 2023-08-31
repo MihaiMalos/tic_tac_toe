@@ -18,7 +18,7 @@ class _CustomConfettiWidgetState extends State<CustomConfettiWidget> {
   void initState() {
     super.initState();
     _controllerCenter =
-        ConfettiController(duration: const Duration(seconds: 5));
+        ConfettiController(duration: const Duration(seconds: 3));
     _controllerCenter.play();
   }
 
@@ -58,29 +58,24 @@ class _CustomConfettiWidgetState extends State<CustomConfettiWidget> {
     return SafeArea(
       child: Stack(
         children: <Widget>[
-          //CENTER -- Blast
           Align(
             alignment: Alignment.center,
             child: ConfettiWidget(
               confettiController: _controllerCenter,
-              blastDirectionality: BlastDirectionality
-                  .explosive, // don't specify a direction, blast randomly
-              shouldLoop:
-                  true, // start again as soon as the animation is finished
+              blastDirectionality: BlastDirectionality.explosive,
+              shouldLoop: false,
               colors: const [
                 Colors.green,
                 Colors.blue,
                 Colors.pink,
                 Colors.orange,
                 Colors.purple
-              ], // manually specify the colors to be used
-              createParticlePath: drawStar, // define a custom shape/path.
+              ],
+              numberOfParticles: 30,
+              gravity: 0.2,
             ),
           ),
-          Align(
-            alignment: Alignment.center,
-            child: widget.child,
-          ),
+          widget.child,
         ],
       ),
     );

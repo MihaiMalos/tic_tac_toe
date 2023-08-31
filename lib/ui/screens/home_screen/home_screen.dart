@@ -34,24 +34,27 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    AlertDialog(
-                      backgroundColor: const Color.fromARGB(255, 240, 192, 89),
-                      title: Center(
-                        child: Text(winnerLabel),
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100)),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () {
-                            gameCubit.restart();
-                            Navigator.of(context).pop();
-                          },
-                          child: const Center(
-                              child: Text('Restart',
-                                  style: TextStyle(color: Colors.green))),
+                    CustomConfettiWidget(
+                      child: AlertDialog(
+                        backgroundColor:
+                            const Color.fromARGB(255, 240, 192, 89),
+                        title: Center(
+                          child: Text(winnerLabel),
                         ),
-                      ],
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100)),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              gameCubit.restart();
+                              Navigator.of(context).pop();
+                            },
+                            child: const Center(
+                                child: Text('Restart',
+                                    style: TextStyle(color: Colors.green))),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
