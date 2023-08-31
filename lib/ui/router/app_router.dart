@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tic_tac_toe_game/ui/screens/difficulty_screen.dart';
+import 'package:tic_tac_toe_game/ui/screens/difficulty_screen/difficulty_screen.dart';
 import 'package:tic_tac_toe_game/ui/screens/home_screen/home_screen.dart';
 
 class AppRouter {

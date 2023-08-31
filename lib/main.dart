@@ -20,7 +20,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<GameCubit>(
-      create: (context) => gameCubit,
+      create: (context) => getIt.get<GameCubit>(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: _appRouter.onGenerateRoute,

@@ -16,6 +16,7 @@ class BoardWidget extends StatelessWidget {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 250),
       child: GridView.count(
+        physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.zero,
         crossAxisCount: 3,
         children: List.generate(9, (index) {

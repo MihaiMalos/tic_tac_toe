@@ -15,8 +15,14 @@ class GameCubit extends Cubit<GameState> implements GameObserver {
   }
 
   MarkMatrix get board => game!.boardRepresentation;
-
   Mark get turn => game!.turn;
+  void restart() {
+    game!.restart();
+    emit(state.copyWith(
+        boardRepresentation: game!.boardRepresentation,
+        turn: game!.turn,
+        gameState: GameEvent.playing));
+  }
 
   void placeMark(Position pos) {
     game!.placeMark(pos);
@@ -31,6 +37,6 @@ class GameCubit extends Cubit<GameState> implements GameObserver {
 
   @override
   void onGameOver(GameEvent gameState) {
-    emit(state.copyWith(gameOverState: gameState));
+    emit(state.copyWith(gameState: gameState));
   }
 }

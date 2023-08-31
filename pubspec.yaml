@@ -15,6 +15,7 @@ dependencies:
   equatable: ^2.0.5
   get_it: ^7.6.0
   flutter_gen: ^5.3.1
+  google_fonts: ^5.1.0
 
 dev_dependencies:
   flutter_test:
@@ -22,10 +23,9 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   build_runner: ^2.4.6
   flutter_gen_runner: ^5.3.1
+  confetti: ^0.7.0
 
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/empty.png
-    - assets/images/x.png
-    - assets/images/o.png
+    - assets/images/
