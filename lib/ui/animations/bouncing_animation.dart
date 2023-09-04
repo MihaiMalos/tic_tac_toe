@@ -4,7 +4,7 @@ class BouncingWidget extends StatefulWidget {
   final Widget child;
   const BouncingWidget({super.key, required this.child});
   @override
-  _BouncingWidgetState createState() => _BouncingWidgetState();
+  State<BouncingWidget> createState() => _BouncingWidgetState();
 }
 
 class _BouncingWidgetState extends State<BouncingWidget>

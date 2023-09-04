@@ -8,7 +8,7 @@ class CustomConfettiWidget extends StatefulWidget {
   const CustomConfettiWidget({super.key, required this.child});
 
   @override
-  _CustomConfettiWidgetState createState() => _CustomConfettiWidgetState();
+  State<CustomConfettiWidget> createState() => _CustomConfettiWidgetState();
 }
 
 class _CustomConfettiWidgetState extends State<CustomConfettiWidget> {
@@ -75,7 +75,7 @@ class _CustomConfettiWidgetState extends State<CustomConfettiWidget> {
               gravity: 0.2,
             ),
           ),
-          widget.child,
+          Center(child: widget.child),
         ],
       ),
     );

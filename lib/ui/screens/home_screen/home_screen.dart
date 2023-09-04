@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tic_tac_toe_game/cubit/game_cubit.dart';
 import 'package:tic_tac_toe_game/cubit/game_state.dart';
 import 'package:tic_tac_toe_game/main.dart';
-import 'package:tic_tac_toe_game/ui/animations/confetti_animation.dart';
 import 'package:tic_tac_toe_game/ui/screens/home_screen/widgets/board_widget.dart';
+import 'package:tic_tac_toe_game/ui/screens/home_screen/widgets/dialog_widget.dart';
 import 'package:tic_tac_toe_game/ui/screens/home_screen/widgets/turn_widget.dart';
 import 'package:tic_tac_toe_lib/tic_tac_toe_lib.dart';
 
@@ -18,11 +18,11 @@ class HomeScreen extends StatelessWidget {
     return BlocConsumer<GameCubit, GameState>(
       bloc: gameCubit,
       listener: (context, state) => {
-        if (state.gameState.isGameOver)
+        if (state.gameEvent != null)
           {
-            if (state.gameState == GameEvent.oWon)
+            if (state.gameEvent!.isOWinner)
               winnerLabel = "O won!"
-            else if (state.gameState == GameEvent.xWon)
+            else if (state.gameEvent!.isXWinner)
               winnerLabel = "X won"
             else
               winnerLabel = "Draw",
@@ -34,28 +34,10 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    CustomConfettiWidget(
-                      child: AlertDialog(
-                        backgroundColor:
-                            const Color.fromARGB(255, 240, 192, 89),
-                        title: Center(
-                          child: Text(winnerLabel),
-                        ),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100)),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              gameCubit.restart();
-                              Navigator.of(context).pop();
-                            },
-                            child: const Center(
-                                child: Text('Restart',
-                                    style: TextStyle(color: Colors.green))),
-                          ),
-                        ],
-                      ),
-                    ),
+                    GameWinDialog(
+                      onPressed: gameCubit.restart,
+                      winnerLabel: winnerLabel,
+                    )
                   ],
                 ),
               ),
@@ -74,9 +56,9 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     child: BoardWidget(
                       state: state,
-                      onPositionTap: (y, x) {
+                      onPositionTap: (y, x) async {
                         try {
-                          gameCubit.placeMark(Position(y, x));
+                          await gameCubit.placeMark(Position(y, x));
                         } catch (e) {
                           debugPrint(e.toString());
                         }

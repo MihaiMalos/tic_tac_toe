@@ -7,12 +7,20 @@ class TurnWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
         children: [
-          PlayerTurnWidget(player: Mark.x, turn: playerTurn),
-          const SizedBox(width: 30),
-          PlayerTurnWidget(player: Mark.o, turn: playerTurn),
+          const Text('CURRENT TURN',
+              style: TextStyle(
+                  color: Color.fromARGB(255, 240, 192, 89), fontSize: 20)),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              PlayerTurnWidget(player: Mark.x, turn: playerTurn),
+              const SizedBox(width: 30),
+              PlayerTurnWidget(player: Mark.o, turn: playerTurn),
+            ],
+          ),
         ],
       ),
     );

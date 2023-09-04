@@ -4,22 +4,23 @@ import 'package:tic_tac_toe_lib/tic_tac_toe_lib.dart';
 class GameState extends Equatable {
   final MarkMatrix boardRepresentation;
   final Mark turn;
-  final GameEvent gameState;
+  final GameEvent? gameEvent;
 
-  const GameState(
-      {this.boardRepresentation = const [],
-      this.turn = Mark.x,
-      this.gameState = GameEvent.playing});
+  const GameState({
+    this.boardRepresentation = const [],
+    this.turn = Mark.x,
+    this.gameEvent,
+  });
 
   GameState copyWith(
           {MarkMatrix? boardRepresentation,
           Mark? turn,
-          GameEvent? gameState}) =>
+          GameEvent? gameEvent}) =>
       GameState(
           boardRepresentation: boardRepresentation ?? this.boardRepresentation,
           turn: turn ?? this.turn,
-          gameState: gameState ?? this.gameState);
+          gameEvent: gameEvent);
 
   @override
-  List<Object?> get props => [boardRepresentation, turn, gameState];
+  List<Object?> get props => [boardRepresentation, turn, gameEvent];
 }
