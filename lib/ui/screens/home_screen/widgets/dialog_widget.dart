@@ -10,9 +10,11 @@ class GameWinDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: const Color.fromARGB(255, 240, 192, 89),
+      backgroundColor: Theme.of(context).colorScheme.primary,
       title: Center(
-        child: CustomConfettiWidget(child: Text(winnerLabel)),
+        child: CustomConfettiWidget(
+            child:
+                Text(winnerLabel, style: const TextStyle(color: Colors.black))),
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
       actions: <Widget>[
@@ -20,8 +22,8 @@ class GameWinDialog extends StatelessWidget {
           child: TextButton(
             style: ButtonStyle(
               fixedSize: const MaterialStatePropertyAll(Size(100, 0)),
-              backgroundColor: const MaterialStatePropertyAll(
-                  Color.fromARGB(255, 31, 30, 31)),
+              backgroundColor: MaterialStatePropertyAll(
+                  Theme.of(context).colorScheme.background),
               shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(100))),
             ),

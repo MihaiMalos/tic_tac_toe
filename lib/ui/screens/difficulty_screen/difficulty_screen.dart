@@ -11,7 +11,7 @@ class DifficultyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 31, 30, 31),
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: Center(
           child: Column(
             children: [

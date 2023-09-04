@@ -46,13 +46,13 @@ class HomeScreen extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-            backgroundColor: const Color.fromARGB(255, 31, 30, 31),
+            backgroundColor: Theme.of(context).colorScheme.background,
             body: Center(
               child: Column(
                 children: [
-                  const SizedBox(height: 100),
+                  SizedBox(height: MediaQuery.of(context).size.height / 7),
                   TurnWidget(playerTurn: gameCubit.turn),
-                  const SizedBox(height: 150),
+                  SizedBox(height: MediaQuery.of(context).size.height / 9),
                   Expanded(
                     child: BoardWidget(
                       state: state,
@@ -65,6 +65,25 @@ class HomeScreen extends StatelessWidget {
                       },
                     ),
                   ),
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    style: ButtonStyle(
+                      fixedSize: const MaterialStatePropertyAll(Size(150, 0)),
+                      backgroundColor: MaterialStatePropertyAll(
+                          Theme.of(context).colorScheme.background),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
+                        side: BorderSide(
+                            color: Theme.of(context).colorScheme.primary),
+                      )),
+                    ),
+                    child: Text(
+                      'RETURN HOME',
+                      style: TextStyle(
+                          color: Colors.white.withOpacity(0.8), fontSize: 15),
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 6),
                 ],
               ),
             ));

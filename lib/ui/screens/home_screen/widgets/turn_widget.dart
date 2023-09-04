@@ -9,9 +9,9 @@ class TurnWidget extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          const Text('CURRENT TURN',
+          Text('CURRENT TURN',
               style: TextStyle(
-                  color: Color.fromARGB(255, 240, 192, 89), fontSize: 20)),
+                  color: Theme.of(context).colorScheme.primary, fontSize: 20)),
           const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -36,7 +36,7 @@ class PlayerTurnWidget extends StatelessWidget {
       height: 50,
       width: 100,
       decoration: BoxDecoration(
-        border: generateBorder(),
+        border: generateBorder(Theme.of(context).colorScheme.primary),
         borderRadius: BorderRadius.circular(25),
       ),
       child: player == Mark.x
@@ -45,12 +45,11 @@ class PlayerTurnWidget extends StatelessWidget {
     );
   }
 
-  Border generateBorder() {
+  Border generateBorder(Color color) {
     BorderSide basicLine = BorderSide(
         color: const Color.fromARGB(255, 121, 116, 116).withOpacity(0.5),
         width: 1);
-    BorderSide highligtedLine =
-        const BorderSide(color: Color.fromARGB(255, 240, 192, 89), width: 1);
+    BorderSide highligtedLine = BorderSide(color: color, width: 1);
     return player == turn
         ? Border(
             left: highligtedLine,
