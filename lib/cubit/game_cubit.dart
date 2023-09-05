@@ -3,52 +3,55 @@ import 'package:tic_tac_toe_lib/tic_tac_toe_lib.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GameCubit extends Cubit<GameState> implements GameObserver {
-  Game? game;
-  GameCubit() : super(const GameState());
-  bool blocked = false;
-
-  void initializeGame(Strategy strategy) {
-    game = Game.create(
-      strategy: strategy,
-      computerMoveDuration: const Duration(milliseconds: 300),
-    );
-    game!.addObserver(this);
+  Game game;
+  GameCubit()
+      : game = Game.create(
+          computerMoveDuration: const Duration(milliseconds: 500),
+          moveDuration: const Duration(seconds: 5),
+        ),
+        super(const GameState()) {
+    game.addObserver(this);
 
     emit(state.copyWith(
-        boardRepresentation: game!.boardRepresentation, turn: game!.turn));
+      boardRepresentation: game.boardRepresentation,
+      turn: game.turn,
+    ));
   }
 
-  MarkMatrix get board => game!.boardRepresentation;
-  Mark get turn => game!.turn;
+  set strategy(Strategy strategy) => game.setStrategy = strategy.convertToObj;
+  MarkMatrix get board => game.boardRepresentation;
+  Mark get turn => game.turn;
+  void startTimer() => game.startTimer();
+
   void restart() {
-    if (blocked) return;
-    game!.restart();
+    game.restart();
+    emit(GameState.initialize(game));
+  }
 
-    final newState = state.copyWith(
-        boardRepresentation: game!.boardRepresentation,
-        turn: game!.turn,
-        gameEvent: null);
-
-    emit(newState);
+  void stop() {
+    restart();
+    game.stopTimer();
   }
 
   Future<void> placeMark(Position pos) async {
-    if (blocked) return;
-    await game!.placeMark(pos);
+    await game.placeMark(pos);
   }
 
   @override
   void onPlaceMark(Position pos, bool isComputerMove) {
-    blocked = true;
     final newState = state.copyWith(
-        boardRepresentation: game!.boardRepresentation, turn: game!.turn);
+        boardRepresentation: game.boardRepresentation, turn: game.turn);
 
     emit(newState);
-    blocked = false;
   }
 
   @override
-  void onGameOver(GameEvent gameState) {
-    emit(state.copyWith(gameEvent: gameState));
+  void onGameOver(GameStatus gameStatus) {
+    emit(state.copyWith(gameStatus: gameStatus));
+  }
+
+  @override
+  void onTimerTick(Duration remainingTime) {
+    emit(state.copyWith(remainingTime: remainingTime));
   }
 }

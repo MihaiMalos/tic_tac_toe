@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tic_tac_toe_game/cubit/game_cubit.dart';
-import 'package:tic_tac_toe_game/main.dart';
 import 'package:tic_tac_toe_game/ui/animations/bouncing_animation.dart';
 import 'package:tic_tac_toe_lib/tic_tac_toe_lib.dart';
 
@@ -32,8 +30,9 @@ class DifficultyScreen extends StatelessWidget {
                     letterSpacing: 5,
                     shadows: [
                       const Shadow(
-                          color: Color.fromARGB(162, 255, 255, 255),
-                          blurRadius: 40)
+                        color: Color.fromARGB(162, 255, 255, 255),
+                        blurRadius: 40,
+                      )
                     ]),
               ),
               const SizedBox(height: 50),
@@ -76,13 +75,11 @@ class DifficultyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gameCubit = getIt.get<GameCubit>();
     return SizedBox(
       height: 50,
       child: MaterialButton(
         onPressed: () {
-          gameCubit.initializeGame(strategy);
-          Navigator.of(context).pushNamed('/home');
+          Navigator.of(context).pushNamed('/home', arguments: strategy);
         },
         child: Text(
           difficultyName,
