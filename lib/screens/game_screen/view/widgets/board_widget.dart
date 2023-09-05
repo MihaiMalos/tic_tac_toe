@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tic_tac_toe_game/ui/screens/game_screen/cubit/game_state.dart';
+import 'package:tic_tac_toe_game/screens/game_screen/cubit/game_state.dart';
 import 'package:tic_tac_toe_lib/tic_tac_toe_lib.dart';
 
 class BoardWidget extends StatelessWidget {

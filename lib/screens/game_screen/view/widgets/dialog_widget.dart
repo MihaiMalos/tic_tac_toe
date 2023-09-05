@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tic_tac_toe_game/ui/animations/confetti_animation.dart';
+import 'package:tic_tac_toe_game/animations/confetti_animation.dart';
 
 class GameWinDialog extends StatelessWidget {
   final Function onPressed;
