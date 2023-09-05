@@ -6,8 +6,7 @@ class GameCubit extends Cubit<GameState> implements GameObserver {
   Game game;
   GameCubit()
       : game = Game.create(
-          computerMoveDuration: const Duration(milliseconds: 500),
-          moveDuration: const Duration(seconds: 5),
+          timerMoveDuration: const Duration(seconds: 5),
         ),
         super(const GameState()) {
     game.addObserver(this);
