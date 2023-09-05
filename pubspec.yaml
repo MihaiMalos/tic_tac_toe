@@ -26,6 +26,7 @@ dev_dependencies:
   build_runner: ^2.4.6
   flutter_gen_runner: ^5.3.1
   flutter_launcher_icons: ^0.13.1
+  bloc_test: ^9.1.4
 
 flutter_launcher_icons:
   android: "launch_icon"
@@ -35,8 +36,8 @@ flutter_launcher_icons:
   web:
     generate: true
     image_path: "assets/images/launch_icon.png"
-    background_color: "#ffffff"
-    theme_color: "#ffffff"
+    background_color: "#333333"
+    theme_color: "#333333"
   windows:
     generate: true
     image_path: "assets/images/launch_icon.png"

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tic_tac_toe_game/main.dart';
-import 'package:tic_tac_toe_game/cubit/game_cubit.dart';
-import 'package:tic_tac_toe_game/cubit/game_state.dart';
-import 'package:tic_tac_toe_game/ui/screens/game_screen/widgets/board_widget.dart';
-import 'package:tic_tac_toe_game/ui/screens/game_screen/widgets/dialog_widget.dart';
-import 'package:tic_tac_toe_game/ui/screens/game_screen/widgets/turn_widget.dart';
+import 'package:tic_tac_toe_game/ui/screens/game_screen/cubit/game_cubit.dart';
+import 'package:tic_tac_toe_game/ui/screens/game_screen/cubit/game_state.dart';
+import 'package:tic_tac_toe_game/ui/screens/game_screen/view/widgets/board_widget.dart';
+import 'package:tic_tac_toe_game/ui/screens/game_screen/view/widgets/dialog_widget.dart';
+import 'package:tic_tac_toe_game/ui/screens/game_screen/view/widgets/turn_widget.dart';
 import 'package:tic_tac_toe_lib/tic_tac_toe_lib.dart';
 
 class GameScreen extends StatelessWidget {

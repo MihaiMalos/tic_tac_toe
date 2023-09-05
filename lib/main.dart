@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
-import 'package:tic_tac_toe_game/cubit/game_cubit.dart';
+import 'package:tic_tac_toe_game/ui/screens/game_screen/cubit/game_cubit.dart';
 import 'package:tic_tac_toe_game/ui/router/app_router.dart';
 
 final getIt = GetIt.instance;

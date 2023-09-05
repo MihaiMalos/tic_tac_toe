@@ -1,4 +1,4 @@
-import 'package:tic_tac_toe_game/cubit/game_state.dart';
+import 'package:tic_tac_toe_game/ui/screens/game_screen/cubit/game_state.dart';
 import 'package:tic_tac_toe_lib/tic_tac_toe_lib.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
