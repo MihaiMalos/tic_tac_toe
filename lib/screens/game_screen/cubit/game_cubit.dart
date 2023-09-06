@@ -23,6 +23,7 @@ class GameCubit extends Cubit<GameState> implements GameObserver {
   Duration get timerDuration => _game.timerDuration;
 
   set strategy(Strategy strategy) => _game.strategy = strategy;
+
   set game(Game newGame) {
     _game.removeObserver(this);
     _game = newGame;

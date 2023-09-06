@@ -14,7 +14,7 @@ import 'game_cubit_test.mocks.dart';
 void main() {
   group('GameCubit', () {
     blocTest<GameCubit, GameState>(
-      'Cubit init state',
+      'init state',
       build: () => GameCubit(),
       act: (cubit) {
         expect(
@@ -31,7 +31,7 @@ void main() {
     );
 
     blocTest<GameCubit, GameState>(
-      'Cubit set strategy',
+      'set strategy',
       build: () => GameCubit(),
       act: (cubit) {
         MockGame mockGame = MockGame();
@@ -43,7 +43,7 @@ void main() {
     );
 
     blocTest<GameCubit, GameState>(
-      'Cubit placeMark command',
+      'placeMark command',
       build: () => GameCubit(),
       act: (cubit) {
         MockGame mockGame = MockGame();
@@ -53,7 +53,41 @@ void main() {
       },
     );
 
-    blocTest<GameCubit, GameState>('Cubit onPlaceMark event',
+    blocTest<GameCubit, GameState>(
+      'startTimer command',
+      build: () => GameCubit(),
+      act: (cubit) {
+        MockGame mockGame = MockGame();
+        cubit.game = mockGame;
+        cubit.startTimer();
+        verify(mockGame.startTimer()).called(1);
+      },
+    );
+
+    blocTest<GameCubit, GameState>(
+      'restart command',
+      build: () => GameCubit(),
+      act: (cubit) {
+        MockGame mockGame = MockGame();
+        cubit.game = mockGame;
+        cubit.restart();
+        verify(mockGame.restart()).called(1);
+      },
+    );
+
+    blocTest<GameCubit, GameState>(
+      'stop command',
+      build: () => GameCubit(),
+      act: (cubit) {
+        MockGame mockGame = MockGame();
+        cubit.game = mockGame;
+        cubit.stop();
+        verify(mockGame.restart()).called(1);
+        verify(mockGame.stopTimer()).called(1);
+      },
+    );
+
+    blocTest<GameCubit, GameState>('onPlaceMark event',
         build: () => GameCubit(),
         act: (cubit) {
           MockGame mockGame = MockGame();
@@ -68,14 +102,38 @@ void main() {
           cubit.onPlaceMark(Position(0, 0), false);
         },
         expect: () => [
-              const GameState(boardRepresentation: [
-                [Mark.x, Mark.empty, Mark.empty],
-                [Mark.empty, Mark.empty, Mark.empty],
-                [Mark.empty, Mark.empty, Mark.empty],
-              ], turn: Mark.x, gameStatus: null, remainingTime: Duration.zero)
+              const GameState(
+                boardRepresentation: [
+                  [Mark.x, Mark.empty, Mark.empty],
+                  [Mark.empty, Mark.empty, Mark.empty],
+                  [Mark.empty, Mark.empty, Mark.empty],
+                ],
+                turn: Mark.x,
+                gameStatus: null,
+                remainingTime: Duration.zero,
+              )
             ]);
 
-    blocTest<GameCubit, GameState>('Cubit onGameOver event',
+    blocTest<GameCubit, GameState>('onTimerTick event',
+        build: () => GameCubit(),
+        act: (cubit) {
+          MockGame mockGame = MockGame();
+
+          cubit.game = mockGame;
+          cubit.onTimerTick(const Duration(milliseconds: 3200));
+        },
+        expect: () => [
+              const GameState(
+                boardRepresentation: [
+                  [Mark.empty, Mark.empty, Mark.empty],
+                  [Mark.empty, Mark.empty, Mark.empty],
+                  [Mark.empty, Mark.empty, Mark.empty],
+                ],
+                remainingTime: Duration(milliseconds: 3200),
+              )
+            ]);
+
+    blocTest<GameCubit, GameState>('onGameOver event',
         build: () => GameCubit(),
         act: (cubit) {
           MockGame mockGame = MockGame();
